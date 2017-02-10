@@ -10,7 +10,12 @@ int PWMB = 5; //Speed control
 int BIN1 = 11; //Direction
 int BIN2 = 12; //Direction
 
+//Ultrasonic sensor
+int trigPin = 14;
+int echoPin = 15;
+
 void setup(){
+  Serial.begin(115200);
   pinMode(STBY, OUTPUT);
 
   pinMode(PWMA, OUTPUT);
@@ -20,12 +25,32 @@ void setup(){
   pinMode(PWMB, OUTPUT);
   pinMode(BIN1, OUTPUT);
   pinMode(BIN2, OUTPUT);
+
+  pinMode(trigPin, OUTPUT);
+  pinMode(echoPin, INPUT);
 }
 
 void loop(){
-  move(1, 255, 1); //motor 1, full speed, left
-  move(2, 255, 1); //motor 2, full speed, left
+  //move(1, 255, 1); //motor 1, full speed, left
+  //move(2, 255, 1); //motor 2, full speed, left
 
+  long duration, distance;
+  digitalWrite(trigPin, LOW);  // Added this line
+  delayMicroseconds(2); // Added this line
+  digitalWrite(trigPin, HIGH);
+//  delayMicroseconds(1000); - Removed this line
+  delayMicroseconds(10); // Added this line
+  digitalWrite(trigPin, LOW);
+  duration = pulseIn(echoPin, HIGH);
+  distance = (duration/2) / 29.1;
+  Serial.println(distance);
+  if(distance < 40) {
+    goReverse(256);
+  } else if (distance > 30){
+    goForward(256);
+  } else {
+    stop();
+  }
 /*  delay(1000); //go for 1 second
   stop(); //stop
   delay(250); //hold for 250ms until move again
@@ -64,6 +89,25 @@ void move(int motor, int speed, int direction){
     digitalWrite(BIN2, inPin2);
     analogWrite(PWMB, speed);
   }
+}
+
+void turnLeft(int speed) {
+  move(1, speed, 0);
+  move(2, speed, 1);
+}
+
+void turnRight(int speed) {
+  move(1, speed, 0);
+}
+
+void goForward(int speed) {
+  move(1, speed, 0);
+  move(2, speed, 0);
+}
+
+void goReverse(int speed) {
+  move(1, speed, 1);
+  move(2, speed, 1);
 }
 
 void stop(){
