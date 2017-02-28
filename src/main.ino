@@ -10,6 +10,8 @@ int PWMB = 5; //Speed control
 int BIN1 = 11; //Direction
 int BIN2 = 12; //Direction
 
+int led = 23; // LED
+
 //Ultrasonic sensor
 int trigPin = 14;
 int echoPin = 15;
@@ -28,6 +30,7 @@ void setup(){
 
   pinMode(trigPin, OUTPUT);
   pinMode(echoPin, INPUT);
+  pinMode(led, OUTPUT);
 }
 
 void loop(){
@@ -44,10 +47,20 @@ void loop(){
   duration = pulseIn(echoPin, HIGH);
   distance = (duration/2) / 29.1;
   Serial.println(distance);
-  if(distance < 40) {
-    goReverse(256);
-  } else if (distance > 30){
-    goForward(256);
+  if(distance < 20) {
+    digitalWrite(led, HIGH);
+    stop();
+    delay(100);
+    goReverse(100);
+    delay(1000);
+    stop();
+    for(int i = 0; i < 3; i++) {
+      turnRight(255);
+        
+    }
+  } else if (distance >= 20){
+    digitalWrite(led, LOW);
+    goForward(150);
   } else {
     stop();
   }
