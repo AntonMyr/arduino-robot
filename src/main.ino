@@ -82,6 +82,7 @@ void loop(){
   // Move Forward
   if(lineLeft < 800 && lineRight > 800) {
     turnRight(150);
+
   }
 
   // Turn right
@@ -91,7 +92,8 @@ void loop(){
 
   // turn left
   else {
-    // goForward(150);
+    goForward(150);
+
   }
 
 
