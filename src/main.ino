@@ -18,8 +18,8 @@ int trigPin = 14;
 int echoPin = 15;
 
 /* Sensors */
-const LS = A2; // left sensor
-const RS = A3; // right sensor
+int LS = A2; // left sensor
+int RS = A3; // right sensor
 
 // RedBotSensor IRSensor1 = RedBotSensor(A2);
 // RedBotSensor IRSensor2 = RedBotSensor(A3);
@@ -58,6 +58,9 @@ void loop(){
   duration = pulseIn(echoPin, HIGH);
   distance = (duration/2) / 29.1;
   Serial.println(distance);
+
+  int lineLeft = analogRead(LS);
+  int lineRight = analogRead(RS);
   // goForward(150);
   if(distance < 20) {
     // digitalWrite(led, HIGH);
@@ -77,18 +80,18 @@ void loop(){
     stop();
   }
   // Move Forward
-  if(LS < 800 && RS > 800 {
-    turnRight();
+  if(lineLeft < 800 && lineRight > 800) {
+    turnRight(150);
   }
 
   // Turn right
-  else if(LS > 800 && RS < 800) {
-    turnLeft();
+  else if(lineLeft > 800 && lineRight < 800) {
+    turnLeft(150);
   }
 
   // turn left
   else {
-    goForward();
+    // goForward(150);
   }
 
 
