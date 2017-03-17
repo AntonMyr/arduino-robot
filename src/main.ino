@@ -17,6 +17,10 @@ int led = 23; // LED
 int trigPin = 14;
 int echoPin = 15;
 
+/* Sensors */
+const LS = A2; // left sensor
+const RS = A3; // right sensor
+
 // RedBotSensor IRSensor1 = RedBotSensor(A2);
 // RedBotSensor IRSensor2 = RedBotSensor(A3);
 
@@ -31,10 +35,12 @@ void setup(){
   pinMode(PWMB, OUTPUT);
   pinMode(BIN1, OUTPUT);
   pinMode(BIN2, OUTPUT);
-
   pinMode(trigPin, OUTPUT);
   pinMode(echoPin, INPUT);
   pinMode(led, OUTPUT);
+
+  pinMode(LS, INPUT);
+  pinMode(RS, INPUT);
 }
 
 void loop(){
@@ -70,6 +76,22 @@ void loop(){
   } else {
     stop();
   }
+  // Move Forward
+  if(LS < 800 && RS > 800 {
+    turnRight();
+  }
+
+  // Turn right
+  else if(LS > 800 && RS < 800) {
+    turnLeft();
+  }
+
+  // turn left
+  else {
+    goForward();
+  }
+
+
 /*  delay(1000); //go for 1 second
   stop(); //stop
   delay(250); //hold for 250ms until move again
