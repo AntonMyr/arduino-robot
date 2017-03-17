@@ -58,21 +58,21 @@ void loop(){
   duration = pulseIn(echoPin, HIGH);
   distance = (duration/2) / 29.1;
   Serial.println(distance);
-  goForward(150);
+  // goForward(150);
   if(distance < 20) {
-    digitalWrite(led, HIGH);
-    stop();
-    delay(100);
-    goReverse(100);
-    delay(1000);
-    stop();
+    // digitalWrite(led, HIGH);
+    // stop();
+    // delay(100);
+    // goReverse(100);
+    // delay(1000);
+    // stop();
     for(int i = 0; i < 3; i++) {
-      turnRight(255);
+      // turnRight(255);
 
     }
   } else if (distance >= 20){
-    digitalWrite(led, LOW);
-    goForward(150);
+    // digitalWrite(led, LOW);
+    // goForward(150);
   } else {
     stop();
   }
