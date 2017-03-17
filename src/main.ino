@@ -1,3 +1,4 @@
+// #include <RedBot.h>
 int STBY = 10; //standby
 
 //Motor A
@@ -15,6 +16,9 @@ int led = 23; // LED
 //Ultrasonic sensor
 int trigPin = 14;
 int echoPin = 15;
+
+// RedBotSensor IRSensor1 = RedBotSensor(A2);
+// RedBotSensor IRSensor2 = RedBotSensor(A3);
 
 void setup(){
   Serial.begin(115200);
@@ -36,6 +40,7 @@ void setup(){
 void loop(){
   //move(1, 255, 1); //motor 1, full speed, left
   //move(2, 255, 1); //motor 2, full speed, left
+  // Serial.println(IRSensor1.read());
 
   long duration, distance;
   digitalWrite(trigPin, LOW);  // Added this line
@@ -47,6 +52,7 @@ void loop(){
   duration = pulseIn(echoPin, HIGH);
   distance = (duration/2) / 29.1;
   Serial.println(distance);
+  goForward(150);
   if(distance < 20) {
     digitalWrite(led, HIGH);
     stop();
@@ -56,7 +62,7 @@ void loop(){
     stop();
     for(int i = 0; i < 3; i++) {
       turnRight(255);
-        
+
     }
   } else if (distance >= 20){
     digitalWrite(led, LOW);
