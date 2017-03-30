@@ -75,7 +75,7 @@ void loop(){
   //}
   // Move Forward
   if(lineLeft < 900 && lineRight > 930) {
-    turnRight(100, 10);
+    turnRight(209, 209);
     Serial.print("Right");
     Serial.print(lineRight);
     Serial.println();
@@ -88,12 +88,12 @@ void loop(){
     Serial.print("Right");
     Serial.print(lineRight);
     Serial.println();
-    turnLeft(100, 10);
+    turnLeft(209, 209);
   }
 
   // turn left
   else {
-    goForward(100);
+    goForward(255);
 
   }
 
