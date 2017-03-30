@@ -48,51 +48,52 @@ void loop(){
   //move(2, 255, 1); //motor 2, full speed, left
   // Serial.println(IRSensor1.read());
 
-  long duration, distance;
-  digitalWrite(trigPin, LOW);  // Added this line
-  delayMicroseconds(2); // Added this line
-  digitalWrite(trigPin, HIGH);
+  //long duration, distance;
+  // digitalWrite(trigPin, LOW);  // Added this line
+  // delayMicroseconds(2); // Added this line
+  // digitalWrite(trigPin, HIGH);
 //  delayMicroseconds(1000); - Removed this line
-  delayMicroseconds(10); // Added this line
-  digitalWrite(trigPin, LOW);
-  duration = pulseIn(echoPin, HIGH);
-  distance = (duration/2) / 29.1;
-  Serial.println(distance);
+  // delayMicroseconds(10); // Added this line
+  // digitalWrite(trigPin, LOW);
+  //duration = pulseIn(echoPin, HIGH);
+  //distance = (duration/2) / 29.1;
 
   int lineLeft = analogRead(LS);
   int lineRight = analogRead(RS);
   // goForward(150);
-  if(distance < 20) {
+  //if(distance < 20) {
     // digitalWrite(led, HIGH);
     // stop();
     // delay(100);
     // goReverse(100);
     // delay(1000);
     // stop();
-    for(int i = 0; i < 3; i++) {
-      // turnRight(255);
-
-    }
-  } else if (distance >= 20){
+  //} else if (distance >= 20){
     // digitalWrite(led, LOW);
     // goForward(150);
-  } else {
-    stop();
-  }
+  //} else {
+  //}
   // Move Forward
-  if(lineLeft < 800 && lineRight > 800) {
-    turnRight(150);
-
+  if(lineLeft < 900 && lineRight > 930) {
+    turnRight(100, 10);
+    Serial.print("Right");
+    Serial.print(lineRight);
+    Serial.println();
   }
-
   // Turn right
-  else if(lineLeft > 800 && lineRight < 800) {
-    turnLeft(150);
+  else if(lineLeft > 930 && lineRight < 900) {
+    Serial.print("Left");
+    Serial.print(lineLeft);
+    Serial.println();
+    Serial.print("Right");
+    Serial.print(lineRight);
+    Serial.println();
+    turnLeft(100, 10);
   }
 
   // turn left
   else {
-    goForward(150);
+    goForward(100);
 
   }
 
@@ -137,13 +138,15 @@ void move(int motor, int speed, int direction){
   }
 }
 
-void turnLeft(int speed) {
-  move(1, speed, 0);
-  move(2, speed, 1);
+void turnLeft(int speed1, int speed2) {
+  // move(1, speed, 0);
+  move(1, speed1, 0);
+  move(2, speed2, 1);
 }
 
-void turnRight(int speed) {
-  move(1, speed, 0);
+void turnRight(int speed1, int speed2) {
+  move(1, speed2, 1);
+  move(2, speed1, 0);
 }
 
 void goForward(int speed) {
