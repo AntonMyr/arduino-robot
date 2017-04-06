@@ -93,7 +93,7 @@ void loop(){
 
   // turn left
   else {
-    goForward(255);
+    goForward(244);
 
   }
 
